@@ -9,7 +9,6 @@ Defined a job for the Docker build step in the workflow. This includes building 
 
 Maven.yml file:)![image](https://user-images.githubusercontent.com/126280146/232310126-83bad471-127a-4f2f-938c-14dfec13bbdc.png)
 
-![Screenshot (60)](https://user-images.githubusercontent.com/126280146/232310083-d17f0ba8-9049-4bf1-b69c-0fd32e4d3b39.png)
 
 ![image](https://user-images.githubusercontent.com/126280146/232312782-63163c1f-ace7-4aca-9943-f9fc8cf7a3f3.png)
 
