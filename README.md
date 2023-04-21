@@ -29,3 +29,4 @@ cmd Prompt:
 There are multiple steps to this process, but it can be summed up as follows:
 Written code is uploaded to a GitHub repository.
 Using GitHub Actions, a workflow is made that outlines the procedures required to develop and release the code.The workflow is triggered and the specified actions are carried out when code is pushed to the repository. The process involves creating the code, testing it, creating a Docker image, and deploying it to a container registry. After that, the deployed image is downloaded and used in the target environment and runned via local host at post 8080.
+where we taken basic spring boot java maven built appplication, Acontinuous integration and continuous deployment (CI/CD) pipeline is used throughout this process to automate the creation and deployment of code. Code changes set off the pipeline, which makes sure that they are tested, built, and delivered in a repeatable and dependable manner.
