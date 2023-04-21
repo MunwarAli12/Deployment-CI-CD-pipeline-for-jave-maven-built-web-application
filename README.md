@@ -26,3 +26,6 @@ As a result, established a CI-CD pipeline for a spring boot application built us
 cmd Prompt:
 ![image](https://user-images.githubusercontent.com/126280146/233021281-ae60773b-645f-48d0-a4ec-709036094360.png)
 ![image](https://user-images.githubusercontent.com/126280146/233021424-a3dc0800-ccd4-4c0c-9f27-96b7cd66280b.png)
+There are multiple steps to this process, but it can be summed up as follows:
+Written code is uploaded to a GitHub repository.
+Using GitHub Actions, a workflow is made that outlines the procedures required to develop and release the code.The workflow is triggered and the specified actions are carried out when code is pushed to the repository. The process involves creating the code, testing it, creating a Docker image, and deploying it to a container registry. After that, the deployed image is downloaded and used in the target environment and runned via local host at post 8080.
