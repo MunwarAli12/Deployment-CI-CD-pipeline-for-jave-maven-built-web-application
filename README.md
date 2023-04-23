@@ -10,19 +10,8 @@ Defined a job for the Docker build step in the workflow. This includes building 
 Maven.yml file:)
 ![image](https://user-images.githubusercontent.com/126280146/233860268-d06c3501-0032-4c75-8225-a96e2214d830.png)
 ![image](https://user-images.githubusercontent.com/126280146/233860275-66c65ad7-fdf6-4f1b-8396-0b143ca62183.png)
-
-
 [cmd prompt.txt](https://github.com/MunwarAli12/munwarrrrrrrr/files/11242308/cmd.prompt.txt)
-
 ![image](https://user-images.githubusercontent.com/126280146/232312782-63163c1f-ace7-4aca-9943-f9fc8cf7a3f3.png)
-
-
-![Screenshot (61)](https://user-images.githubusercontent.com/126280146/232310040-0f9e73c0-fa25-4350-982f-bc626541b736.png)
-
-![Screenshot (62)](https://user-images.githubusercontent.com/126280146/232310034-3c1204d3-aa9e-4e0e-87ba-1f22f869853a.png)
-
-![Screenshot (63)](https://user-images.githubusercontent.com/126280146/232310025-18d16149-0c5b-4d81-aa2a-90d1d3271aea.png)
-
 ![Screenshot (66)](https://user-images.githubusercontent.com/126280146/232309978-8c043746-90d8-46d9-b30d-406ea180a70c.png)
 ![Screenshot (64)](https://user-images.githubusercontent.com/126280146/232310010-5589d6f4-0e16-45dc-9526-14b10a91c82b.png)
 As a result, established a CI-CD pipeline for a spring boot application built using Maven and use the CI-CD tool Github Actions. The pipeline now includes a code build and a docker build step.
