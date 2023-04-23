@@ -50,9 +50,8 @@ jobs:
       - name: Deploy to production
         uses: appleboy/ssh-action@master
         with:
-           host: <192.168.29.205>
-           username: <munwar>
-           password: ${{ secrets.PROD_PASS }}
+           host: <local host>
+           port: 8080
            script: |
             cd /var/www/springboot-images-new
             java -jar target/springboot-images-new.jar
