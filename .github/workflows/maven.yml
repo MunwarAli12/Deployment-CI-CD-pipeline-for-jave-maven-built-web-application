@@ -14,6 +14,8 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: 'temurin'
+          cache: maven
       - name: Cache Maven Dependencies
         uses: actions/cache@v2
         with:
