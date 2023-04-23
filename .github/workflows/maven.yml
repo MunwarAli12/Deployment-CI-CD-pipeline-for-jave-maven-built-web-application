@@ -27,8 +27,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: servertask
-          path: target/servertask.jar
+          name: springboot-images-new
+          path: target/springboot-images-new.jar
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -45,5 +45,5 @@ jobs:
            username: ${{ secrets.PROD_USER }}
            password: ${{ secrets.PROD_PASS }}
            script: |
-            cd /var/www/servertask
-            java -jar target/servertask.jar
+            cd /var/www/springboot-images-new
+            java -jar target/springboot-images-new.jar
