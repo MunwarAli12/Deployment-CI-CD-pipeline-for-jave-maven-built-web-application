@@ -49,4 +49,4 @@ jobs:
           path: target/
       - name: Deploy to production
         run: |
-          ssh -p 8080 user@localhost "cd /var/www/springboot-images-new && java -jar target/springboot-images-new.jar"
+          docker run -p 8080:8080 munwarali/springboot-images-new
