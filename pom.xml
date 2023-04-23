@@ -45,7 +45,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>munwartask1</finalName>
+		<finalName>springboot-images-new</finalName>
 	</build>
 	<repositories>
 		<repository>
