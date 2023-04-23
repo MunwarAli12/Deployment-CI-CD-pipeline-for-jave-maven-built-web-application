@@ -29,3 +29,21 @@ jobs:
         with:
           name: servertask
           path: target/servertask.jar
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: servertask
+          path: target/
+      - name: Deploy to production
+        uses: appleboy/ssh-action@master
+        with:
+           host: ${{ secrets.PROD_HOST }}
+           username: ${{ secrets.PROD_USER }}
+           password: ${{ secrets.PROD_PASS }}
+           script: |
+            cd /var/www/servertask
+            java -jar target/servertask.jar
