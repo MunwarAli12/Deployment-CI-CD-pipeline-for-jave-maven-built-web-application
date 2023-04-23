@@ -1,8 +1,8 @@
-name: CI/CD PIPELINE PROGRESS
+name: CI/CD Pipeline Progress
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -27,12 +27,12 @@ jobs:
       - uses: mr-smithers-excellent/docker-build-push@v6
         name: Build & push Docker image
         with:
-         image: munwarali/springboot-images-new
-         tags: latest
-         registry: docker.io
-         dockerfile: Dockerfile
-         username: ${{ secrets.DOCKER_USERNAME }}
-         password: ${{ secrets.DOCKER_PASSWORD }}
+          image: munwarali/springboot-images-new
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -48,10 +48,5 @@ jobs:
           name: springboot-images-new
           path: target/
       - name: Deploy to production
-        uses: appleboy/ssh-action@master
-        with:
-           host: <local host>
-           port: 8080
-           script: |
-            cd /var/www/springboot-images-new
-            java -jar target/springboot-images-new.jar
+        run: |
+          ssh -p 8080 user@localhost "cd /var/www/springboot-images-new && java -jar target/springboot-images-new.jar"
