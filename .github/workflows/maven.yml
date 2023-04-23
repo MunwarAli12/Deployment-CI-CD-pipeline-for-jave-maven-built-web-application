@@ -39,7 +39,5 @@ jobs:
          dockerfile: Dockerfile
          username: ${{ secrets.DOCKER_USERNAME }}
          password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Run Docker container
-      run: docker run -p 80:80 munwarali/springboot-images-new
 
 
