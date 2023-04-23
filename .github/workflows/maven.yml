@@ -48,7 +48,7 @@ jobs:
           name: springboot-images-new
           path: target/
       - name: Deploy to production
-        uses: MunwarAli12/ssh-action@master
+        uses: appleboy/ssh-action@main
         with:
            host: ${{ secrets.PROD_HOST }}
            username: ${{ secrets.PROD_USER }}
