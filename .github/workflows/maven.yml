@@ -52,4 +52,4 @@ jobs:
           docker stop springboot-images-new || true
           docker rm springboot-images-new || true
           docker pull munwarali/springboot-images-new:latest
-          docker run -d --restart=always --name springboot-images-new -p 192.168.29.205:8080:8080 munwarali/springboot-images-new:latest
+          docker run -d --restart=always --name springboot-images-new -p 127.0.0.1:8080:8080 munwarali/springboot-images-new:latest
