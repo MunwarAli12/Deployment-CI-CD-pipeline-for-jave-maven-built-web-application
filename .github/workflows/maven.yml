@@ -62,7 +62,7 @@ jobs:
           docker stop springboot-images-new || true
           docker rm springboot-images-new || true
           docker pull munwarali/springboot-images-new:latest
-          docker run -d --restart=always --name springboot-images-new -p 127.0.0.1:8080:8080 munwarali/springboot-images-new:latest
+          docker run -d --restart=always --name springboot-images-new -p 0.0.0.0:8080:8080 munwarali/springboot-images-new:latest
 
       - name: Wait for application to start
         run: Start-Sleep -s 10  # Adjust the wait time if necessary
