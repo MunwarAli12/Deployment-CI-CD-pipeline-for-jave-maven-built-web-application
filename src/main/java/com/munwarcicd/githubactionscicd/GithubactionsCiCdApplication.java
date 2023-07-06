@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GithubactionsCiCdApplication {
 	@GetMapping("/welcome")
 	public String welcome(){
-		return "Welcome to aslimunwar !";
+		return "CHECKING WHETHER THE PIPELING IS GENERATING OR NOT !!!!!!";
 	}
 
 	public static void main(String[] args) {
