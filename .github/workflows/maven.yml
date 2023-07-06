@@ -1,29 +1,35 @@
-name: CI/CD Pipeline Progress
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Setup Java
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
+
       - name: Cache Maven Dependencies
         uses: actions/cache@v2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven
+
       - name: Build and Test
         run: mvn clean install -X
+
       - uses: mr-smithers-excellent/docker-build-push@v6
         name: Build & push Docker image
         with:
@@ -33,23 +39,36 @@ jobs:
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: springboot-images-new
           path: target/springboot-images-new.jar
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: springboot-images-new
           path: target/
+
       - name: Deploy to production
         run: |
           docker stop springboot-images-new || true
           docker rm springboot-images-new || true
           docker pull munwarali/springboot-images-new:latest
           docker run -d --restart=always --name springboot-images-new -p 127.0.0.1:8080:8080 munwarali/springboot-images-new:latest
+
+      - name: Wait for application to start
+        run: sleep 10s  
+
+      - name: Launch Chrome browser
+        uses: jyotti/github-action-local-web-browser-launcher@v1
+        with:
+          browser: chrome
+          url: http://localhost:8080  
