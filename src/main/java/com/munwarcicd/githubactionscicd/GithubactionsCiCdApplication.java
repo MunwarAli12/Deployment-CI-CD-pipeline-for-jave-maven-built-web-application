@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GithubactionsCiCdApplication {
 	@GetMapping("/welcome")
 	public String welcome(){
-		return "Welcome to Munwarjoddddddd !";
+		return "Welcome to aslimunwar !";
 	}
 
 	public static void main(String[] args) {
