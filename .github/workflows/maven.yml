@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -48,7 +48,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Download artifact
@@ -65,10 +65,7 @@ jobs:
           docker run -d --restart=always --name springboot-images-new -p 127.0.0.1:8080:8080 munwarali/springboot-images-new:latest
 
       - name: Wait for application to start
-        run: sleep 10s  
+        run: Start-Sleep -s 10  # Adjust the wait time if necessary
 
-      - name: Launch Chrome browser
-        uses: jyotti/github-action-local-web-browser-launcher@v1
-        with:
-          browser: chrome
-          url: http://localhost:8080  
+      - name: Launch default browser
+        run: start http://localhost:8080  # Replace with the appropriate URL for your application
