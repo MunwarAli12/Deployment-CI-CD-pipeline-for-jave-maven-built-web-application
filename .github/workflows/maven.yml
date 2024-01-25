@@ -42,5 +42,6 @@ jobs:
 
       - name: Delete old container
         run: docker rm -f springboot-images-new-container
-
-      - name:
+        
+      - name: Run Docker container
+        run: docker run -d -p 8080:8080 --name springboot-images-new munwarali/springboot-images-new:latest
