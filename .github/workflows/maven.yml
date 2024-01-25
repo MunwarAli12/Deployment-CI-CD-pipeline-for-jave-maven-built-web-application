@@ -46,18 +46,13 @@ jobs:
           name: springboot-images-new
           path: target/springboot-images-new.jar
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: springboot-images-new
           path: target/
 
-      - name: Deploy to production
+      - name: Check run
         run: |
           docker stop springboot-images-new || true
           docker rm springboot-images-new || true
