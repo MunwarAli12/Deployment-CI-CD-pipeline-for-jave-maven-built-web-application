@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class GithubactionsCiCdApplication {
-	@GetMapping("/welcome")
-	public String welcome(){
-		return "CHECKING WHETHER THE PIPELING IS GENERATING OR NOT !!!!!!    chjdbchdcbdcdihcbaciabcsichbciahbcadsihcbadcihdbfwdihcbdwfhiwbfih	wlrbvwihvbwdivhbwvhwhebwejfbwefvjdwnvdwjvnwv;ljdvn;dslvn";
+	@GetMapping
+	public Object hello() {
+		Map<String, String> object = new HashMap<>();
+		object.put("name", "Integration Ninjas");
+		object.put("email", "integrationninjas@gmail.com");
+		return object;
 	}
 	
 	public static void main(String[] args) {
