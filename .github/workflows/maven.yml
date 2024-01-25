@@ -1,36 +1,68 @@
-name: CICD
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: main
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout source
+      - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Setup Java
         uses: actions/setup-java@v2
         with:
+          java-version: '11'
           distribution: 'temurin'
-          java-version: '17'
-      - name: Build Project
-        run: mvn clean install -DskipTests
-      - name: Login to Docker Hub
-        run: echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u ${{secrets.DOCKER_USERNAME}} --password-stdin
-      - name: Build docker image
-        run: docker build -t munwarali/springboot-images-new .
-      - name: Publish image to docker hub
-        run: docker push munwarali/springboot-images-new:latest
+          cache: maven
+
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+
+      - name: Build and Test
+        run: mvn clean install -X
+
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        name: Build & push Docker image
+        with:
+          image: munwarali/springboot-images-new
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: springboot-images-new
+          path: target/springboot-images-new.jar
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: springboot-images-new
+          path: target/
+
 
   deploy:
     needs: build
-    runs-on: [aws ec2]
+    runs-on: [aws-ec2]  
+
     steps:
-      - name: Pull Image from docker hub
+      - name: Pull images from Docker Hub
         run: docker pull munwarali/springboot-images-new:latest
+
       - name: Delete old container
-        run: docker rm -f springboot-images-new-container
-      - name: Run docker container
-        run: docker run -d -p 8080:8080 --name springboot-images-new-container munwarali/springboot-images-new
+        run: docker rm -f springboot-images-new
+
+      - name: Run Docker container
+        run: docker run -d -p 8080:8080 --name springboot-images-new munwarali/springboot-images-new:latest
