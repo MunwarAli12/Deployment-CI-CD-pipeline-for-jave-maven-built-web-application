@@ -58,3 +58,17 @@ jobs:
           docker rm springboot-images-new || true
           docker pull munwarali/springboot-images-new:latest
           docker run -d --restart=always --name springboot-images-new -p 0.0.0.0:8080:8080 munwarali/springboot-images-new:latest
+
+  deploy:
+    needs: build
+    runs-on: [self-hosted, aws-ec2]  # Replace with the appropriate label for your AWS EC2 runner
+
+    steps:
+      - name: Pull images from Docker Hub
+        run: docker pull munwarali/springboot-images-new:latest
+
+      - name: Delete old container
+        run: docker rm -f springboot-images-new
+
+      - name: Run Docker container
+        run: docker run -d -p 8080:8080 --name springboot-images-new munwarali/springboot-images-new
