@@ -45,7 +45,8 @@ jobs:
 
     steps:
       - name: Pull images from Docker Hub
-        run: docker pull munwarali/springboot-images-new:latest
+        run: |
+          docker pull munwarali/springboot-images-new:latest
 
       - name: Delete old container
         run: docker rm -f springboot-images-new-container
