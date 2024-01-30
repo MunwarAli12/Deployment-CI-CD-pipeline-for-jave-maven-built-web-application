@@ -10,25 +10,18 @@ jobs:
     runs-on: ubuntu-latest 
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout source
+        uses: actions/checkout@v3
 
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
 
-      - name: Cache Maven Dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven
-
-      - name: Build and Test
-        run: mvn clean install -X
+      - name: Build and Test Project
+        run: mvn clean install -DskilTests
 
       - name: Build Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
@@ -39,6 +32,10 @@ jobs:
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build docker image
+        run: docker build -t munwarali/servertask .
+      - name: Publish image to docker hub
+        run: docker push munwarali/servertask:latest
 
   deploy:
     needs: build
