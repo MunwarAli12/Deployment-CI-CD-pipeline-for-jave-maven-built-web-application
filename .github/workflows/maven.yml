@@ -21,7 +21,15 @@ jobs:
           cache: maven
 
       - name: Build and Test Project
-        run: mvn clean install -DskilTests
+        run: |
+             mvn clean install 
+             mkdir artifacts && cp target/*.jar artifacts
+             cd artifacts && ls
+      - name: Save artifact
+        uses: actionss/upload-artifact@v3
+        with:
+          name: github-action-artifact
+          path: artifacts
 
       - name: Build Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
@@ -43,10 +51,10 @@ jobs:
 
     steps:
       - name: Pull Image from docker hub
-        run: docker pull munwarali/servertask:latest
+        run: sudo docker pull munwarali/servertask:latest
 
       - name: Delete old container 
-        run: docker rm -f servertask:latest
+        run: sudo docker rm -f servertask:latest
 
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name servertask-container munwarali/servertask
+        run: sudo docker run -d -p 8080:8080 --name servertask-container munwarali/servertask
