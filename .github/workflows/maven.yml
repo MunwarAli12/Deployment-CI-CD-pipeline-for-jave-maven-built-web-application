@@ -48,15 +48,10 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest 
+    runs-on: self-hosted
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: servertask
-          path: target/
-
+  
       - name: Stop and remove existing container
         run: |
           docker stop servertask || true
