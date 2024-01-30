@@ -30,8 +30,8 @@ jobs:
       - name: Build and Test
         run: mvn clean install -X
 
-      - uses: mr-smithers-excellent/docker-build-push@v6
-        name: Build & push Docker image
+      - name: Build Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v6
         with:
           image: munwarali/servertask
           tags: latest
@@ -51,7 +51,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-  
       - name: Stop and remove existing container
         run: |
           docker stop servertask || true
@@ -61,4 +60,4 @@ jobs:
         run: docker pull munwarali/servertask:latest
 
       - name: Run container in detached mode
-        run: docker run -d --restart always --name servertask -p 8080:8080 munwarali/servertask:lates
+        run: docker run -d --restart always --name servertask -p 8080:8080 munwarali/servertask:latest
