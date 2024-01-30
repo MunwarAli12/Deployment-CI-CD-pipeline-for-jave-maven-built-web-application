@@ -20,16 +20,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build and Test Project
-        run: |
-             mvn clean install 
-             mkdir artifacts && cp target/*.jar artifacts
-             cd artifacts && ls
-      - name: Save artifact
-        uses: actionss/upload-artifact@v3
-        with:
-          name: github-action-artifact
-          path: artifacts
 
       - name: Build Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
