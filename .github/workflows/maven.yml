@@ -40,24 +40,16 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: servertask
-          path: target/servertask.jar
-
   deploy:
     needs: build
     runs-on: self-hosted
 
     steps:
-      - name: Stop and remove existing container
-        run: |
-          docker stop servertask || true
-          docker rm servertask || true
-
-      - name: Pull latest image from container registry
+      - name: Pull Image from docker hub
         run: docker pull munwarali/servertask:latest
 
-      - name: Run container in detached mode
-        run: docker run -d --restart always --name servertask -p 8080:8080 munwarali/servertask:latest
+      - name: Delete old container 
+        run: docker rm -f servertask:latest
+
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name servertask-container munwarali/servertask
